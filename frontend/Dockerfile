@@ -1,7 +1,7 @@
 # --- Stage 1: Build Stage ---
     FROM node:23-alpine AS builder
     WORKDIR /app
-    COPY package*.json ./
+    COPY . .
     RUN npm install --frozen-lockfile
     COPY . .
     RUN npm run build
