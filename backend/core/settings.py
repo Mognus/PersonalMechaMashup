@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'users.apps.UsersConfig', # Use AppConfig for clarity (points to users/apps.py)
+    'auth_api.apps.AuthApiConfig',
 ]
 
 MIDDLEWARE = [

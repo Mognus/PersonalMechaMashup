@@ -28,7 +28,8 @@ services:
     env_file:
       - .env # Load environment variables from .env file
     depends_on:
-      - db # Wait for db service to be ready (basic check)
+      db:
+        condition: service_started 
     networks:
       - app-network
 
