@@ -34,7 +34,9 @@ services:
       - app-network
 
   frontend:
-    build: ./frontend # Build from Dockerfile in ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev  # Explicitly use Dockerfile.dev
     container_name: ${PROJECT_NAME}_frontend
     command: npm run dev # Run Next.js dev server
     volumes:

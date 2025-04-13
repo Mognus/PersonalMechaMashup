@@ -1,21 +1,19 @@
-FROM node:23-alpine AS development
+FROM node:20-alpine
 
-# Setze das Arbeitsverzeichnis
+# Set working directory
 WORKDIR /app
 
-COPY ./package.json ./
-COPY ./package-lock.json ./
+# Copy package files
+COPY package.json package-lock.json ./
 
-# Installiere ALLE Dependencies (inklusive devDependencies)
-# Verwende --frozen-lockfile wenn du sicherstellen willst, dass exakt die gleichen Versionen wie in der lock-Datei installiert werden
-RUN npm install
+# Install dependencies
+RUN npm ci
 
-# Kopiere den Rest des App-Codes (optional, da wir Volumes verwenden, aber gut für den Fallback)
-# COPY . .
-# Hinweis: Das Kopieren wird meist durch das Volume-Mounting in docker-compose.yml überschrieben,
-# aber es ist gut, es hier zu haben, falls das Volume mal nicht gemountet wird.
+# Copy the rest of the code (when not mounted via volumes)
+COPY . .
 
-# Der Standardbefehl wird durch 'command' in docker-compose.yml überschrieben,
-# aber es ist gut, einen sinnvollen Standard zu definieren.
-# EXPOSE 3000 # Wird bereits in docker-compose.yml gemacht
-# CMD ["npm", "run", "dev"]
+# Expose port
+EXPOSE 3000
+
+# Command to run - will be overridden by docker-compose command if specified
+CMD ["npm", "run", "dev"]
